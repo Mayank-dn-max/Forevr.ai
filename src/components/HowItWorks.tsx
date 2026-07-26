@@ -244,23 +244,19 @@ function MobileStep({
   total: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 85%", "end 15%"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.25], [24, 0]);
-  const dotScale = useTransform(scrollYProgress, [0, 0.25], [0.3, 1]);
+  const inView = useInView(ref, { once: true, margin: "-15%" });
 
   const isLast = index === total - 1;
+  const delay = index * 0.15; // stagger slightly if multiple are on screen
 
   return (
     <div ref={ref} className="relative flex items-start gap-4 pb-10">
       {/* Left: dot + connector line */}
       <div className="flex flex-col items-center shrink-0 pt-1" style={{ width: "20px" }}>
         <motion.div
-          style={{ scale: dotScale }}
+          initial={{ scale: 0 }}
+          animate={inView ? { scale: 1 } : { scale: 0 }}
+          transition={{ duration: 0.4, delay, ease: [0.34, 1.56, 0.64, 1] }}
           className="shrink-0"
         >
           <div
@@ -274,7 +270,10 @@ function MobileStep({
           />
         </motion.div>
         {!isLast && (
-          <div
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={inView ? { opacity: 1, height: "100%" } : { opacity: 0, height: 0 }}
+            transition={{ duration: 0.6, delay: delay + 0.2, ease: "easeOut" }}
             style={{
               width: "1px",
               flex: 1,
@@ -287,7 +286,12 @@ function MobileStep({
       </div>
 
       {/* Right: text content */}
-      <motion.div style={{ opacity, y }} className="pb-2">
+      <motion.div
+        initial={{ opacity: 0, x: -16 }}
+        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }}
+        transition={{ duration: 0.5, delay: delay + 0.1, ease: "easeOut" }}
+        className="pb-2"
+      >
         <span
           style={{
             fontSize: "10px",
