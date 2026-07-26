@@ -285,67 +285,68 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Dashboard mockup */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" as const }}
-        style={{
-          position: "relative",
-          width: "100%",
-          maxWidth: "1100px",
-          margin: "0 auto",
-          padding: "0 24px",
-          overflow: "visible",
-          zIndex: 10,
-        }}
-      >
-        {/* Layer 1 — ambient glow, behind everything */}
-        <div
-          style={{
-            position: "absolute",
-            top: "-120px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "140%",
-            height: "100%",
-            background: "radial-gradient(ellipse 70% 50% at 50% 40%, rgba(100,80,220,0.28) 0%, rgba(99,102,241,0.10) 45%, transparent 75%)",
-            filter: "blur(100px)",
-            zIndex: 0,
-            pointerEvents: "none",
-          }}
-        />
-
-        {/* Layer 2 — dashboard (in-flow, defines the containing block height) */}
-        <div
-          className="overflow-x-auto overflow-y-hidden"
+      {/* Dashboard mockup — desktop only */}
+      <div className="hidden md:block">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" as const }}
           style={{
             position: "relative",
-            zIndex: 1,
             width: "100%",
-            borderRadius: "12px",
-            border: "1px solid rgba(255,255,255,0.06)",
-            // We removed overflow: hidden from inline style so the class can handle x-axis scrolling
+            maxWidth: "1100px",
+            margin: "0 auto",
+            padding: "0 24px",
+            overflow: "visible",
+            zIndex: 10,
           }}
         >
-          <DashboardMockup />
-        </div>
+          {/* Layer 1 — ambient glow, behind everything */}
+          <div
+            style={{
+              position: "absolute",
+              top: "-120px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "140%",
+              height: "100%",
+              background: "radial-gradient(ellipse 70% 50% at 50% 40%, rgba(100,80,220,0.28) 0%, rgba(99,102,241,0.10) 45%, transparent 75%)",
+              filter: "blur(100px)",
+              zIndex: 0,
+              pointerEvents: "none",
+            }}
+          />
 
-        {/* Layer 3 — bottom fade, sits ON TOP of the image */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: "24px",
-            right: "24px",
-            height: "45%",
-            zIndex: 2,
-            background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.85) 65%, rgb(0,0,0) 100%)",
-            pointerEvents: "none",
-            borderRadius: "0 0 12px 12px",
-          }}
-        />
-      </motion.div>
+          {/* Layer 2 — dashboard (in-flow, defines the containing block height) */}
+          <div
+            className="overflow-x-auto overflow-y-hidden"
+            style={{
+              position: "relative",
+              zIndex: 1,
+              width: "100%",
+              borderRadius: "12px",
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
+            <DashboardMockup />
+          </div>
+
+          {/* Layer 3 — bottom fade, sits ON TOP of the image */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: "24px",
+              right: "24px",
+              height: "45%",
+              zIndex: 2,
+              background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.85) 65%, rgb(0,0,0) 100%)",
+              pointerEvents: "none",
+              borderRadius: "0 0 12px 12px",
+            }}
+          />
+        </motion.div>
+      </div>
 
 
     </section>

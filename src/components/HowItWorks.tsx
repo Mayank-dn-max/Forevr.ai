@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Plug, ScanSearch, GitBranch, FlaskConical } from "lucide-react";
 
@@ -215,43 +215,39 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* ── Mobile vertical fallback ── */}
-        <div className="flex md:hidden flex-col gap-6">
-          {steps.map((step, i) => {
-            const delay = 0.3 + i * 0.15;
-            return (
-              <motion.div
-                key={i}
-                className="flex items-start gap-4"
-                initial={{ opacity: 0, x: -16 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.4, delay, ease: "easeOut" }}
-              >
-                <div className="flex flex-col items-center gap-1 shrink-0 pt-1">
-                  <div
-                    className="w-3 h-3 rounded-full"
-                    style={{
-                      background: "radial-gradient(circle at 35% 35%, #a5b4fc, #6366f1)",
-                      boxShadow: "0 0 8px rgba(99,102,241,0.6)",
-                    }}
-                  />
-                  {i < steps.length - 1 && (
-                    <div className="w-px flex-1 min-h-[32px]" style={{ background: "rgba(99,102,241,0.2)" }} />
-                  )}
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono font-bold" style={{ color: "rgba(99,102,241,0.55)" }}>
-                    {step.number}
-                  </span>
-                  <p className="text-sm font-semibold text-white">{step.title}</p>
-                  <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>{step.desc}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+        {/* ── Mobile Sticky Scroll Flow ── */}
+        <div className="md:hidden">
+          <MobileScrollFlow />
         </div>
       </div>
     </section>
+  );
+}
+
+function MobileScrollFlow() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <div ref={containerRef} className="relative h-[400vh]">
+      {steps.map((step, i) => {
+        const start = i / steps.length;
+        const end = (i + 1) / steps.length;
+        const opacity = useTransform(scrollYProgress, [start, start + 0.05, end - 0.05, end], [0, 1, 1, 0]);
+        return (
+          <div key={i} className="sticky top-0 h-screen flex items-center justify-center">
+            <motion.div style={{ opacity }} className="text-center">
+              <span className="text-xs font-mono text-indigo-400">{step.number}</span>
+              <h3 className="text-2xl font-bold text-white my-2">{step.title}</h3>
+              <p className="text-sm text-gray-400">{step.desc}</p>
+            </motion.div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
