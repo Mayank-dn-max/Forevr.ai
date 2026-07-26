@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import ShaderWave from "@/components/ui/shader-wave";
 
 const traces = [
   { time: "Jun 12, 04:13 PM", input: "Summarize Q2 earnings report",      output: "Revenue grew 18% YoY, driven by...",    model: "gpt-4o",        latency: "1.24s", cost: "$0.0082", success: 100, fail: false },
@@ -284,6 +285,22 @@ export default function Hero() {
           </a>
         </motion.div>
       </motion.div>
+
+      {/* Wave shader — mobile only, fills the space where dashboard was */}
+      <div className="block md:hidden w-full mt-6 px-4">
+        <div
+          style={{
+            width: "100%",
+            height: "260px",
+            borderRadius: "12px",
+            overflow: "hidden",
+            border: "1px solid rgba(124,58,237,0.2)",
+            boxShadow: "0 0 40px rgba(99,102,241,0.12)",
+          }}
+        >
+          <ShaderWave />
+        </div>
+      </div>
 
       {/* Dashboard mockup — desktop only */}
       <div className="hidden md:block">
