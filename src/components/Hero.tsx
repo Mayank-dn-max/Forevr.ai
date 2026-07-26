@@ -286,20 +286,33 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Wave shader — mobile only, fills the space where dashboard was */}
-      <div className="block md:hidden w-full mt-6 px-4">
-        <div
-          style={{
-            width: "100%",
-            height: "260px",
-            borderRadius: "12px",
-            overflow: "hidden",
-            border: "1px solid rgba(124,58,237,0.2)",
-            boxShadow: "0 0 40px rgba(99,102,241,0.12)",
-          }}
-        >
-          <ShaderWave />
-        </div>
+      {/* Wave shader — mobile only, edge-to-edge */}
+      <div className="block md:hidden w-full mt-8" style={{ position: "relative", height: "280px", overflow: "hidden" }}>
+        <ShaderWave />
+        {/* Left fade — blends shader into the black bg */}
+        <div style={{
+          position: "absolute", top: 0, left: 0, bottom: 0, width: "60px",
+          background: "linear-gradient(to right, #000 0%, transparent 100%)",
+          pointerEvents: "none",
+        }} />
+        {/* Right fade */}
+        <div style={{
+          position: "absolute", top: 0, right: 0, bottom: 0, width: "60px",
+          background: "linear-gradient(to left, #000 0%, transparent 100%)",
+          pointerEvents: "none",
+        }} />
+        {/* Top fade */}
+        <div style={{
+          position: "absolute", top: 0, left: 0, right: 0, height: "48px",
+          background: "linear-gradient(to bottom, #000 0%, transparent 100%)",
+          pointerEvents: "none",
+        }} />
+        {/* Bottom fade */}
+        <div style={{
+          position: "absolute", bottom: 0, left: 0, right: 0, height: "48px",
+          background: "linear-gradient(to top, #000 0%, transparent 100%)",
+          pointerEvents: "none",
+        }} />
       </div>
 
       {/* Dashboard mockup — desktop only */}

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Prevent horizontal overflow causing mobile zoom-out */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 @theme inline {
   /* Backgrounds — pure black base */
   --color-bg-primary: #000000;
