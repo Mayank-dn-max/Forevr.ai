@@ -54,7 +54,7 @@ export function MinimalFooter() {
             {/* Logo */}
             <a href="#" className="flex items-center gap-3 w-max">
               <div
-                className="w-16 h-16 rounded-lg flex items-center justify-center text-[#7c3aed]"
+                className="w-16 h-16 rounded-lg flex items-center justify-center text-accent-primary"
               >
                 <Logo size={60} />
               </div>

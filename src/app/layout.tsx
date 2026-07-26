@@ -21,11 +21,11 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Forevr — Auto-Discover AI Agent Failures Without Writing Evals",
+  title: "Forevr",
   description:
     "The only observability tool that finds agent failures you didn't know to look for. Auto-discovery, causal root cause, and framework-agnostic tracing.",
   openGraph: {
-    title: "Forevr — Auto-Discover AI Agent Failures Without Writing Evals",
+    title: "Forevr",
     description:
       "The only observability tool that finds agent failures you didn't know to look for. Auto-discovery, causal root cause, and framework-agnostic tracing.",
     type: "website",
