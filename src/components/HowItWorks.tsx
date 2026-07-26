@@ -225,28 +225,87 @@ export default function HowItWorks() {
 }
 
 function MobileScrollFlow() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  return (
+    <div className="relative">
+      {steps.map((step, i) => (
+        <MobileStep key={i} step={step} index={i} total={steps.length} />
+      ))}
+    </div>
+  );
+}
+
+function MobileStep({
+  step,
+  index,
+  total,
+}: {
+  step: typeof steps[0];
+  index: number;
+  total: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
+    target: ref,
+    offset: ["start 85%", "end 15%"],
   });
 
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.25], [24, 0]);
+  const dotScale = useTransform(scrollYProgress, [0, 0.25], [0.3, 1]);
+
+  const isLast = index === total - 1;
+
   return (
-    <div ref={containerRef} className="relative h-[400vh]">
-      {steps.map((step, i) => {
-        const start = i / steps.length;
-        const end = (i + 1) / steps.length;
-        const opacity = useTransform(scrollYProgress, [start, start + 0.05, end - 0.05, end], [0, 1, 1, 0]);
-        return (
-          <div key={i} className="sticky top-0 h-screen flex items-center justify-center">
-            <motion.div style={{ opacity }} className="text-center">
-              <span className="text-xs font-mono text-indigo-400">{step.number}</span>
-              <h3 className="text-2xl font-bold text-white my-2">{step.title}</h3>
-              <p className="text-sm text-gray-400">{step.desc}</p>
-            </motion.div>
-          </div>
-        );
-      })}
+    <div ref={ref} className="relative flex items-start gap-4 pb-10">
+      {/* Left: dot + connector line */}
+      <div className="flex flex-col items-center shrink-0 pt-1" style={{ width: "20px" }}>
+        <motion.div
+          style={{ scale: dotScale }}
+          className="shrink-0"
+        >
+          <div
+            style={{
+              width: "14px",
+              height: "14px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle at 35% 35%, #a5b4fc, #6366f1)",
+              boxShadow: "0 0 12px rgba(99,102,241,0.7), 0 0 4px rgba(99,102,241,0.9)",
+            }}
+          />
+        </motion.div>
+        {!isLast && (
+          <div
+            style={{
+              width: "1px",
+              flex: 1,
+              minHeight: "40px",
+              background: "linear-gradient(to bottom, rgba(99,102,241,0.4), rgba(99,102,241,0.05))",
+              marginTop: "6px",
+            }}
+          />
+        )}
+      </div>
+
+      {/* Right: text content */}
+      <motion.div style={{ opacity, y }} className="pb-2">
+        <span
+          style={{
+            fontSize: "10px",
+            fontWeight: 700,
+            fontFamily: "monospace",
+            color: "rgba(99,102,241,0.55)",
+            letterSpacing: "0.08em",
+          }}
+        >
+          {step.number}
+        </span>
+        <p style={{ fontSize: "16px", fontWeight: 600, color: "#fff", margin: "3px 0 0" }}>
+          {step.title}
+        </p>
+        <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", marginTop: "4px", lineHeight: 1.55 }}>
+          {step.desc}
+        </p>
+      </motion.div>
     </div>
   );
 }

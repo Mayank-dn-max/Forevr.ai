@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, DM_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -30,6 +30,12 @@ export const metadata: Metadata = {
       "The only observability tool that finds agent failures you didn't know to look for. Auto-discovery, causal root cause, and framework-agnostic tracing.",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
