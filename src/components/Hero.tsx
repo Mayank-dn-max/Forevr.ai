@@ -20,7 +20,14 @@ const traces = [
   { time: "Jun 12, 04:08 PM", input: "Flag anomalies in spend data",      output: "Error: rate_limit / retry in 20s",    model: "gpt-4o-mini",   latency: "0.07s", cost: "—",       success: 0,   fail: true  },
 ];
 
-const navItems = [
+type NavItem = {
+  label: string;
+  icon: string;
+  active?: boolean;
+  badge?: string;
+};
+
+const navItems: { section: string; items: NavItem[] }[] = [
   { section: "ANALYTICS", items: [{ label: "Overview", icon: "⊞" }, { label: "Traces", icon: "▦", active: true }, { label: "Sessions", icon: "◉" }] },
   { section: "EVALUATION", items: [{ label: "Insights", icon: "⊕", badge: "1" }, { label: "Datasets", icon: "▣" }, { label: "Evals", icon: "⚖" }] },
 ];
