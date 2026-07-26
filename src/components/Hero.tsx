@@ -251,7 +251,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" as const }}
-          className="text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tight leading-[1.03] gradient-text whitespace-nowrap"
+          className="text-4xl sm:text-5xl md:text-[5.5rem] font-bold tracking-tight leading-[1.08] gradient-text md:whitespace-nowrap"
         >
           Know what&apos;s wrong<br />before your users do.
         </motion.h1>
