@@ -83,7 +83,7 @@ export default function SDKPreview() {
               <p className="text-xs font-semibold uppercase tracking-widest mb-5" style={{ color: "rgba(255,255,255,0.3)" }}>
                 Compatible frameworks
               </p>
-              <div className="grid grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {frameworks.map((fw, i) => (
                   <motion.div
                     key={fw.name}

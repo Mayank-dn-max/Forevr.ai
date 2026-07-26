@@ -35,7 +35,7 @@ const navItems: { section: string; items: NavItem[] }[] = [
 function DashboardMockup() {
   return (
     <div
-      className="w-full flex"
+      className="w-full flex min-w-[800px]"
       style={{
         background: "#ffffff",
         height: "420px",
@@ -251,7 +251,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" as const }}
-          className="text-6xl sm:text-7xl md:text-[5.5rem] font-bold tracking-tight leading-[1.03] gradient-text whitespace-nowrap"
+          className="text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tight leading-[1.03] gradient-text whitespace-nowrap"
         >
           Know what&apos;s wrong<br />before your users do.
         </motion.h1>
@@ -318,13 +318,14 @@ export default function Hero() {
 
         {/* Layer 2 — dashboard (in-flow, defines the containing block height) */}
         <div
+          className="overflow-x-auto overflow-y-hidden"
           style={{
             position: "relative",
             zIndex: 1,
             width: "100%",
             borderRadius: "12px",
             border: "1px solid rgba(255,255,255,0.06)",
-            overflow: "hidden",
+            // We removed overflow: hidden from inline style so the class can handle x-axis scrolling
           }}
         >
           <DashboardMockup />

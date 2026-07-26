@@ -36,9 +36,8 @@ export function MinimalFooter() {
     <footer style={{ background: "#000", position: "relative" }}>
       {/* Inner wrapper — margins match the 160px SiteLines strips so borders coincide */}
       <div
+        className="mx-4 md:mx-16 lg:mx-[160px]"
         style={{
-          marginLeft: "160px",
-          marginRight: "160px",
           borderLeft: `2.5px solid ${BORDER}`,
           borderRight: `2.5px solid ${BORDER}`,
           borderTop: `1px solid ${BORDER}`,
